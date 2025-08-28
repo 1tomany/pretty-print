@@ -1,6 +1,6 @@
 {
     "name": "1tomany/pretty-print",
-    "description": "A simple, no dependency library to ",
+    "description": "A simple, no dependency library to format PHP types as strings",
     "license": "MIT",
     "type": "library",
     "minimum-stability": "stable",
