@@ -1,0 +1,56 @@
+{
+    "name": "1tomany/pretty-print",
+    "description": "A simple, no dependency library to ",
+    "license": "MIT",
+    "type": "library",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "keywords": [
+        "pretty print",
+        "pretty-print",
+        "printr",
+        "print_r",
+        "vardump",
+        "var_dump",
+        "vardumper",
+        "var dumper"
+    ],
+    "require": {
+        "php": ">=8.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.86",
+        "phpstan/phpstan": "^2.1.22",
+        "phpunit/phpunit": "^12.3.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "OneToMany\\PrettyPrint\\": "src/"
+        },
+        "files": [
+            "src/pretty_print.php"
+        ],
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OneToMany\\PrettyPrint\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "fix": "./vendor/bin/php-cs-fixer fix",
+        "stan": "./vendor/bin/phpstan",
+        "test": "./vendor/bin/phpunit"
+    },
+    "authors": [
+        {
+            "name": "Vic Cherubini",
+            "email": "vcherubini@gmail.com"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    }
+}
