@@ -17,10 +17,22 @@ final class PrettyPrintTest extends TestCase
         $this->assertSame(pretty_print($value), $prettyValue);
     }
 
+    /**
+     * @return list<list<mixed>>
+     */
     public static function providerValueAndPrettyValue(): array
     {
         $provider = [
             [null, 'null'],
+            [0, '0'],
+            [1, '1'],
+            [10, '10'],
+            [1.0, '1.0'],
+            [1.45, '1.45'],
+            ['', '""'],
+            ['a', '"a"'],
+            ['A', '"A"'],
+            ['aA', '"aA"'],
         ];
 
         return $provider;

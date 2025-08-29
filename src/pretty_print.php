@@ -19,11 +19,14 @@ use function trim;
 
 /**
  * Formats a value in PHP as a string that can be safely displayed.
- * This method is great for null, scalar, and array values. Generally,
- * objects will return a string formatted as "FCQN<$objectId>" where
- * `$objectId` is the value returned by `spl_object_id()`. However,
- * `\DateTimeInterface` instances will be formatted using the format
- * described by ISO-8601.
+ *
+ * While this method will work on any PHP value, it is most useful
+ * for null, scalar, and array values. Actual string values will
+ * be surrounded by double quotes to highlight zero-length values.
+ *
+ * Generally, objects will return a string formatted as `FCQN<$objectId>`
+ * where `$objectId` is the value returned by `spl_object_id()`. However,
+ * `\DateTimeInterface` instances will be formatted using ISO-8601.
  *
  * @param mixed $value The value to pretty print
  * @param int $maxStringLength Strings longer than this value will be truncated and appended with three periods. This value is clamped to the range [128, 4096].
