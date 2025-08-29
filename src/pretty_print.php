@@ -3,6 +3,7 @@
 namespace OneToMany\PrettyPrint;
 
 use function count;
+use function get_class;
 use function is_array;
 use function is_bool;
 use function is_float;
@@ -18,10 +19,16 @@ use function trim;
 
 /**
  * Formats a value in PHP as a string that can be safely displayed.
+ * This method is great for null, scalar, and array values. Generally,
+ * objects will return a string formatted as "FCQN<$objectId>" where
+ * `$objectId` is the value returned by `spl_object_id()`. However,
+ * `\DateTimeInterface` instances will be formatted using the format
+ * described by ISO-8601.
  *
  * @param mixed $value The value to pretty print
- * @param int $maxStringLength Strings longer than this value will be truncated
- * and appended with three periods. This value is clamped to the range [128, 4096].
+ * @param int $maxStringLength Strings longer than this value will be truncated and appended with three periods. This value is clamped to the range [128, 4096].
+ *
+ * @see https://www.php.net/manual/en/class.datetimeinterface.php#datetimeinterface.constants.atom
  */
 function pretty_print(mixed $value, int $maxStringLength = 256): string
 {
@@ -68,8 +75,12 @@ function pretty_print(mixed $value, int $maxStringLength = 256): string
         return $pretty;
     }
 
+    if ($value instanceof \DateTimeInterface) {
+        return $value->format(\DateTimeInterface::ATOM);
+    }
+
     if (is_object($value)) {
-        return 'object<'.spl_object_id($value).'>';
+        return get_class($value).'<'.spl_object_id($value).'>';
     }
 
     return is_string($value) ? '"'.$value.'"' : 'unknown';
