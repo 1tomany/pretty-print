@@ -1,6 +1,6 @@
 {
     "name": "1tomany/pretty-print",
-    "description": "A simple, no dependency library to format PHP types as strings",
+    "description": "A simple, no dependency library to format PHP values as strings",
     "license": "MIT",
     "type": "library",
     "minimum-stability": "stable",
@@ -16,8 +16,7 @@
         "var dumper"
     ],
     "require": {
-        "php": ">=8.0",
-        "ext-intl": "*"
+        "php": ">=8.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.86",

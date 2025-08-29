@@ -1,5 +1,5 @@
 # Pretty Print for PHP
-More to come.
+This small library is a handy utility for pretty printing a wide variety of PHP values as strings.
 
 ## Installation
 ```
