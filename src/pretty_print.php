@@ -74,14 +74,14 @@ function pretty_print(mixed $value, int $maxStringLength = 256): string
 
         foreach ($value as $k => $v) {
             if (is_string($k)) {
-                $pretty = $pretty.$k.' => ';
+                $pretty .= $k.' => ';
             }
 
             // Clean each value of the array, and append a comma if needed
             $pretty = $pretty.pretty_print($v).($index++ < $count ? ', ' : '');
         }
 
-        $pretty = $pretty.']';
+        $pretty .= ']';
 
         return $pretty;
     }
