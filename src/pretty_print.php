@@ -35,6 +35,8 @@ use function trim;
  */
 function pretty_print(mixed $value, int $maxStringLength = 256): string
 {
+    static $nf = null;
+
     $maxStringLength = min(max(128, $maxStringLength), 4096);
 
     if (is_null($value)) {
@@ -50,7 +52,13 @@ function pretty_print(mixed $value, int $maxStringLength = 256): string
     }
 
     if (is_float($value)) {
-        return (string) $value;
+        if (!$nf instanceof \NumberFormatter) {
+            $nf = new \NumberFormatter(\Locale::getDefault(), \NumberFormatter::DECIMAL);
+            $nf->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, 1);
+            $nf->setAttribute(\NumberFormatter::DECIMAL_ALWAYS_SHOWN, 1);
+        }
+
+        return $nf->format($value) ?: (string) $value;
     }
 
     if (is_string($value) && strlen($value) > $maxStringLength) {
