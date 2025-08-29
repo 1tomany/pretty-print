@@ -16,9 +16,19 @@ use function strlen;
 use function substr;
 use function trim;
 
-function pretty_print(mixed $value, int $maxStringBytes = 128): string
+/**
+ * Formats a value in PHP as a string that can be safely displayed.
+ *
+ * @param mixed $value The value to pretty print
+ * @param int $maxStringLength Strings longer than this value will be
+ *                             truncated and appended with three periods
+ * @return string
+ */
+function pretty_print(mixed $value, int $maxStringLength = 128): string
 {
-    $maxStringBytes = max(1, $maxStringBytes);
+    $maxStringLength = max(1, $maxStringLength);
+
+    // if ($maxStringBytes > )
 
     if (is_null($value)) {
         return 'null';
@@ -36,8 +46,8 @@ function pretty_print(mixed $value, int $maxStringBytes = 128): string
         return (string) $value;
     }
 
-    if (is_string($value) && strlen($value) > $maxStringBytes) {
-        $value = trim(substr($value, 0, $maxStringBytes)).'...';
+    if (is_string($value) && strlen($value) > $maxStringLength) {
+        $value = trim(substr($value, 0, $maxStringLength)).'...';
     }
 
     if (is_array($value)) {
