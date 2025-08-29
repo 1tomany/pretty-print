@@ -50,16 +50,13 @@ function pretty_print(mixed $value, int $maxStringLength = 256): string
     }
 
     if (is_float($value)) {
-        $value = (string) $value;
-
-        // PHP strips all decimal information when converting floating
-        // point values to strings if the value has only zeros in the
-        // decimal. For example, (string) 1.0 returns the value "1"
-        // instead of "1.0". Thus, if the string representations of a
-        // value as an integer and float are the same, we tack on a ".0"
-        // to indicate the number is a float. This is much faster than
-        // having to instanticate the Locale and NumberFormatter classes.
-        return $value === (string)(int) $value ? $value.'.0' : $value;
+        // PHP strips all decimal information when converting floating point values to
+        // strings if the value has only zeros in the decimal. For example, (string) 1.0
+        // returns the value "1" instead of "1.0". Thus, if the string representations
+        // of a value as an integer and float are the same, we tack on a ".0" to indicate
+        // the value is floating point. This is done because it is much faster than having
+        // to instanticate the Locale and NumberFormatter classes to format the value.
+        return (string) $value === (string) (int) $value ? $value.'.0' : (string) $value;
     }
 
     if (is_string($value) && strlen($value) > $maxStringLength) {
