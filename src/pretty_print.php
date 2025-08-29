@@ -35,8 +35,6 @@ use function trim;
  */
 function pretty_print(mixed $value, int $maxStringLength = 256): string
 {
-    static $nf = null;
-
     $maxStringLength = min(max(128, $maxStringLength), 4096);
 
     if (is_null($value)) {
@@ -52,13 +50,16 @@ function pretty_print(mixed $value, int $maxStringLength = 256): string
     }
 
     if (is_float($value)) {
-        if (!$nf instanceof \NumberFormatter) {
-            $nf = new \NumberFormatter(\Locale::getDefault(), \NumberFormatter::DECIMAL);
-            $nf->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, 1);
-            $nf->setAttribute(\NumberFormatter::DECIMAL_ALWAYS_SHOWN, 1);
-        }
+        $value = (string) $value;
 
-        return $nf->format($value) ?: (string) $value;
+        // PHP strips all decimal information when converting floating
+        // point values to strings if the value has only zeros in the
+        // decimal. For example, (string) 1.0 returns the value "1"
+        // instead of "1.0". Thus, if the string representations of a
+        // value as an integer and float are the same, we tack on a ".0"
+        // to indicate the number is a float. This is much faster than
+        // having to instanticate the Locale and NumberFormatter classes.
+        return $value === (string)(int) $value ? $value.'.0' : $value;
     }
 
     if (is_string($value) && strlen($value) > $maxStringLength) {
