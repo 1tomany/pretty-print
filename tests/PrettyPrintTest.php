@@ -8,5 +8,4 @@ use PHPUnit\Framework\TestCase;
 #[Group('UnitTests')]
 final class PrettyPrintTest extends TestCase
 {
-
 }

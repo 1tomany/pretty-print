@@ -19,10 +19,9 @@ use function trim;
 /**
  * Formats a value in PHP as a string that can be safely displayed.
  *
- * @param mixed $value The value to pretty print
+ * @param mixed $value         The value to pretty print
  * @param int $maxStringLength Strings longer than this value will be
  *                             truncated and appended with three periods
- * @return string
  */
 function pretty_print(mixed $value, int $maxStringLength = 128): string
 {
