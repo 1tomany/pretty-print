@@ -20,22 +20,24 @@ use function trim;
 /**
  * Formats a value in PHP as a string that can be safely displayed.
  *
- * While this method will work on any PHP value, it is most useful
- * for null, scalar, and array values. Actual string values will
- * be surrounded by double quotes to highlight zero-length values.
+ * While this method will work on any PHP value, it is most
+ * useful for `null`, `scalar`, and `array` values. Strings
+ * will be surrounded by quotes to highlight empty values.
  *
- * Generally, objects will return a string formatted as `FCQN<$objectId>`
- * where `$objectId` is the value returned by `spl_object_id()`. However,
- * `\DateTimeInterface` instances will be formatted using ISO-8601.
+ * In most cases, objects will return a string formatted as
+ * `FCQN<$objectId>` where `$objectId` is the PHP object ID.
  *
- * @param mixed $value The value to pretty print
- * @param int $maxStringLength Strings longer than this value will be truncated and appended with three periods. This value is clamped to the range [128, 4096].
+ * However, `\DateTimeInterface` instances will be formatted
+ * using the format defined by ISO-8601: "Y-m-d\\TH:i:sO".
  *
- * @see https://www.php.net/manual/en/class.datetimeinterface.php#datetimeinterface.constants.atom
+ * @param mixed $value the value to pretty print
+ * @param int $maxStringLength strings longer than this value (clamped to [32, 4096]) will be truncated and appended with three periods
+ *
+ * @see https://www.php.net/manual/en/class.datetimeinterface.php#datetimeinterface.constants.iso8601
  */
 function pretty_print(mixed $value, int $maxStringLength = 256): string
 {
-    $maxStringLength = min(max(4, $maxStringLength), 4096);
+    $maxStringLength = min(max(32, $maxStringLength), 4096);
 
     if (is_null($value)) {
         return 'null';
@@ -85,7 +87,7 @@ function pretty_print(mixed $value, int $maxStringLength = 256): string
     }
 
     if ($value instanceof \DateTimeInterface) {
-        return $value->format(\DateTimeInterface::ATOM);
+        return $value->format(\DateTimeInterface::ISO8601);
     }
 
     if (is_object($value)) {
