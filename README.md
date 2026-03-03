@@ -22,7 +22,8 @@ var_dump(pretty_print([])); // string(2) "[]"
 var_dump(pretty_print(['A', 'B'])); // string(10) "["A", "B"]"
 var_dump(pretty_print(['name' => 'Vic'])); // string(15) "[name => "Vic"]"
 var_dump(pretty_print(new \DateTimeImmutable())); // string(25) "2026-03-03T17:36:40+00:00"
-var_dump(pretty_print('This string is longer than 32 characters so it is truncated.', 32)); string(37) ""This string is longer than 32 ch...""
+var_dump(pretty_print('This string is longer than 32 characters so it is truncated.', 32)); // string(37) ""This string is longer than 32 ch...""
+var_dump(pretty_print(\fopen('file.txt', 'r'))); // string(7) "unknown"
 ```
 
 ## Credits
