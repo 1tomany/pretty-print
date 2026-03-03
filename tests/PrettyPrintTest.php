@@ -18,6 +18,13 @@ final class PrettyPrintTest extends TestCase
         $this->assertSame(pretty_print($value), $prettyValue);
     }
 
+    public function testPrettyPrintDateTimeInterfaceFormatsObjectAsIso8601(): void
+    {
+        $date = new \DateTimeImmutable('now');
+
+        $this->assertSame(pretty_print($date), $date->format(\DateTimeInterface::ATOM));
+    }
+
     public function testPrettyPrintObjectUsesClassNameAndObjectId(): void
     {
         $this->assertMatchesRegularExpression('/stdClass\<\d+\>/', pretty_print((object) ['id' => 1]));
