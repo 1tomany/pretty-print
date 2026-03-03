@@ -18,6 +18,11 @@ final class PrettyPrintTest extends TestCase
         $this->assertSame(pretty_print($value), $prettyValue);
     }
 
+    public function testPrettyPrintObjectUsesClassNameAndObjectId(): void
+    {
+        $this->assertMatchesRegularExpression('/stdClass\<\d+\>/', pretty_print((object) ['id' => 1]));
+    }
+
     /**
      * @return list<list<mixed>>
      */
