@@ -31,13 +31,13 @@ use function trim;
  * using the format defined by ISO-8601: "Y-m-d\\TH:i:sO".
  *
  * @param mixed $value the value to pretty print
- * @param int $maxStringLength strings longer than this value (clamped to [32, 4096]) will be truncated and appended with three periods
+ * @param int $maxStringLength strings longer than this value (clamped to [16, 512]) will be truncated and appended with three periods
  *
  * @see https://www.php.net/manual/en/class.datetimeinterface.php#datetimeinterface.constants.iso8601
  */
 function pretty_print(mixed $value, int $maxStringLength = 256): string
 {
-    $maxStringLength = min(max(32, $maxStringLength), 4096);
+    $maxStringLength = min(max(16, $maxStringLength), 512);
 
     if (is_null($value)) {
         return 'null';
