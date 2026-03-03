@@ -35,7 +35,7 @@ use function trim;
  */
 function pretty_print(mixed $value, int $maxStringLength = 256): string
 {
-    $maxStringLength = min(max(128, $maxStringLength), 4096);
+    $maxStringLength = min(max(4, $maxStringLength), 4096);
 
     if (is_null($value)) {
         return 'null';
