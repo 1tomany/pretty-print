@@ -6,6 +6,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
+use function fopen;
 use function OneToMany\PrettyPrint\pretty_print;
 
 #[Group('UnitTests')]
@@ -56,6 +57,7 @@ final class PrettyPrintTest extends TestCase
             [[[null]], '[[null]]'],
             [[[true]], '[[true]]'],
             [[[false]], '[[false]]'],
+            [fopen(__FILE__, 'r'), 'unknown'],
         ];
 
         return $provider;
