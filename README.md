@@ -1,6 +1,6 @@
 # Pretty Print for PHP
 
-This small library is a handy utility for pretty printing a wide variety of PHP values as strings.
+This small library is a handy utility for pretty printing a wide variety of PHP values as strings. It is particularly useful if you wish to safely print unstructured user input; a URL encoded HTTP request for instance.
 
 ## Installation
 

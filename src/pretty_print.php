@@ -33,7 +33,7 @@ use function trim;
  * @param mixed $value the value to pretty print
  * @param int $maxStringLength strings longer than this value (clamped to [16, 512]) will be truncated and appended with three periods
  *
- * @see https://www.php.net/manual/en/class.datetimeinterface.php#datetimeinterface.constants.iso8601
+ * @see https://www.php.net/manual/en/class.datetimeinterface.php#datetimeinterface.constants.atom
  */
 function pretty_print(mixed $value, int $maxStringLength = 256): string
 {
@@ -57,7 +57,7 @@ function pretty_print(mixed $value, int $maxStringLength = 256): string
         // returns the value "1" instead of "1.0". Thus, if the string representations
         // of a value as an integer and float are the same, we tack on a ".0" to indicate
         // the value is floating point. This is done because it is much faster than having
-        // to instanticate the Locale and NumberFormatter classes to format the value.
+        // to instantiate the Locale and NumberFormatter classes to format the value.
         return (string) $value === (string) (int) $value ? $value.'.0' : (string) $value;
     }
 
@@ -87,7 +87,7 @@ function pretty_print(mixed $value, int $maxStringLength = 256): string
     }
 
     if ($value instanceof \DateTimeInterface) {
-        return $value->format(\DateTimeInterface::ISO8601);
+        return $value->format(\DateTimeInterface::ATOM);
     }
 
     if (is_object($value)) {
